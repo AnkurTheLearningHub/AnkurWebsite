@@ -16,15 +16,23 @@
         * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
         body { font-family: 'Outfit', sans-serif; background: var(--soft-bg); color: #333; overflow-x: hidden; }
 
-        /* HEADER */
+        /* HEADER & LOGO FIX */
         .main-header {
             position: fixed; top: 0; width: 100%; z-index: 1000;
-            background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(12px);
+            background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(12px);
             padding: 12px 5%; display: flex; justify-content: space-between; align-items: center;
             box-shadow: 0 4px 20px rgba(0,0,0,0.05);
         }
         .logo-wrap { display: flex; align-items: center; gap: 12px; }
-        .logo-img { height: 50px; border-radius: 50%; border: 2px solid var(--accent); }
+        .logo-img { 
+            height: 60px; /* Increased for better visibility */
+            width: auto;
+            object-fit: contain; /* Ensures full logo is visible */
+            border-radius: 50%; 
+            border: 2px solid var(--accent); 
+            background: white;
+            padding: 2px;
+        }
         .logo-text-top { font-family: 'Fredoka'; font-weight: 700; color: var(--primary); font-size: 1.6rem; }
 
         /* LANDING PAGE HERO */
@@ -80,7 +88,7 @@
         .drawing { background: #ff7675; } .phonics { background: #74b9ff; } .writing { background: #55efc4; } .maths { background: #a29bfe; }
 
         /* SUNFLOWER COURSES */
-        .garden { display: flex; justify-content: center; gap: 40px; flex-wrap: wrap; }
+        .garden { display: flex; justify(E) 421306 center; gap: 40px; flex-wrap: wrap; }
         .flower { display: flex; flex-direction: column; align-items: center; }
         .flower-head { 
             width: 140px; height: 140px; background: var(--sun-yellow); border-radius: 50%;
@@ -95,9 +103,15 @@
         .promise-item { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 12px; font-weight: 600; font-size: 1.1rem; }
         .promise-item span { color: var(--green); font-weight: 900; }
 
-        /* CONTACT SECTION */
+        /* CONTACT SECTION & MAP BUTTON */
         .contact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
-        .c-card { background: white; padding: 30px; border-radius: 30px; text-decoration: none; color: inherit; border: 2px solid #eee; }
+        .c-card { background: white; padding: 30px; border-radius: 30px; text-decoration: none; color: inherit; border: 2px solid #eee; display: flex; flex-direction: column; align-items: center; gap: 10px; }
+        .map-btn {
+            background: var(--primary); color: white; padding: 12px 25px; border-radius: 50px;
+            text-decoration: none; font-weight: 700; margin-top: 10px; transition: 0.3s;
+            box-shadow: 0 4px 15px rgba(95, 39, 205, 0.3);
+        }
+        .map-btn:hover { background: var(--accent); transform: scale(1.05); }
 
         .call-btn { position: fixed; bottom: 30px; right: 30px; background: #ff4757; color: white; padding: 18px 35px; border-radius: 50px; text-decoration: none; font-weight: 800; z-index: 2000; box-shadow: 0 10px 20px rgba(255,71,87,0.4); }
 
@@ -110,7 +124,7 @@
 
     <header class="main-header">
         <div class="logo-wrap">
-            <img src="Logo.png" alt="Logo" class="logo-img">
+            <img src="Logo.png" alt="Ankur Logo" class="logo-img">
             <div class="logo-text-top">ANKUR</div>
         </div>
     </header>
@@ -192,12 +206,16 @@
             </div>
         </div>
 
-        <button class="toggle-btn" onclick="togglePanel('contactP', this)">CONTACT US</button>
+        <button class="toggle-btn" onclick="togglePanel('contactP', this)">CONTACT & LOCATION</button>
         <div id="contactP" class="panel">
             <div class="contact-grid">
                 <a href="tel:9082137372" class="c-card"><h4>📞 Phone</h4><p>908 213 7372 / 959 421 5138</p></a>
                 <a href="mailto:ankurthelearninghub@gmail.com" class="c-card"><h4>✉️ Email</h4><p>ankurthelearninghub@gmail.com</p></a>
-                <div class="c-card"><h4>📍 Address</h4><p>Panduhari Enclave Phase-1, Kalyan (E)</p></div>
+                <div class="c-card">
+                    <h4>📍 Address</h4>
+                    <p style="font-weight: 500; font-size: 0.95rem;">PANDUHARI ENCLAVE PHASE - 1, RAI-RESIDENCY, GAON DEVI ROAD, KALYAN (E) 421306.</p>
+                    <a href="https://www.google.com/maps/search/?api=1&query=PANDUHARI+ENCLAVE+PHASE+1+RAI+RESIDENCY+KALYAN" target="_blank" class="map-btn">📍 Get Directions</a>
+                </div>
             </div>
         </div>
     </div>
@@ -223,7 +241,6 @@
 
         function updateMusic() {
             var anyOpen = document.querySelectorAll('.panel.show').length > 0;
-            // Check if user has scrolled past landing page (height of viewport)
             var scrolledDown = window.scrollY > (window.innerHeight * 0.5);
 
             if (anyOpen && scrolledDown) {
@@ -233,7 +250,6 @@
             }
         }
 
-        // Automatic Stop when scrolling back to landing page
         window.onscroll = function() {
             updateMusic();
         };
